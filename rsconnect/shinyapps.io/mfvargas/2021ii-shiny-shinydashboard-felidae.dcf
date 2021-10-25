@@ -5,9 +5,9 @@ account: mfvargas
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4944710
-bundleId: 5172815
+bundleId: 5172848
 url: https://mfvargas.shinyapps.io/2021ii-shiny-shinydashboard-felidae/
-when: 1635120990.15356
-lastSyncTime: 1635120990.15359
+when: 1635122416.6891
+lastSyncTime: 1635122416.68911
 asMultiple: FALSE
 asStatic: FALSE
