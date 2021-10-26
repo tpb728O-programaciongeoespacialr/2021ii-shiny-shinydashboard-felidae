@@ -1,9 +1,9 @@
 # Paquetes
 library(dplyr)
 library(sf)
-# library(terra)
-# library(raster)
-# library(rgdal)
+library(terra)
+library(raster)
+library(rgdal)
 library(DT)
 library(plotly)
 library(leaflet)
@@ -16,7 +16,7 @@ library(shinydashboard)
 # Lectura de una capa vectorial (GeoJSON) de provincias de Costa Rica
 provincias <-
   st_read(
-    "https://github.com/tpb728O-programaciongeoespacialr/2021ii/raw/main/datos/ign/delimitacion-territorial-administrativa/provincias.geojson",
+    "https://github.com/tpb728O-programaciongeoespacialr/2021ii/raw/main/datos/ign/delimitacion-territorial-administrativa/provincias-simplificadas_100m.geojson",
     quiet = TRUE
   )
 # Transformación del CRS del objeto provincias
@@ -38,10 +38,10 @@ felidae <-
 st_crs(felidae) <- 4326
 
 # Lectura de una capa raster de altitud
-# altitud <-
-#   rast(
-#     "/vsicurl/https://raw.githubusercontent.com/tpb728O-programaciongeoespacialr/2021ii/master/datos/worldclim/altitud.tif"
-#   )
+altitud <-
+  rast(
+    "/vsicurl/https://raw.githubusercontent.com/tpb728O-programaciongeoespacialr/2021ii/master/datos/worldclim/altitud.tif"
+  )
 
 
 # Lista ordenada de especies + "Todas"
@@ -143,7 +143,7 @@ server <- function(input, output, session) {
       filtrarRegistros()
     
     # Conversión del objeto altitud a la clase RasterLayer
-    # altitud_rl <- raster::raster(altitud)
+    altitud_rl <- raster::raster(altitud)
     
     # Mapa Leaflet con capas de provincias y registros de presencia de felinos
     leaflet() %>%
@@ -151,8 +151,8 @@ server <- function(input, output, session) {
               lat = 9.572735,
               zoom = 7) %>%
       addTiles() %>%
-      # addRasterImage(altitud_rl,
-      #                opacity = 0.6) %>%
+      addRasterImage(altitud_rl,
+                     opacity = 0.6) %>%
       addPolygons(
         data = provincias,
         color = "black",
